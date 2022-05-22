@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_application/Constant/color.dart';
+import 'package:hive_application/Model%20Class%20Hive/data.dart';
+import 'package:hive_application/Screen/Add%20Screen/hive_box.dart';
 import 'package:hive_application/Screen/Add%20Screen/image_list.dart';
 import 'package:hive_application/Screen/Home%20Screen/home_screen.dart';
+import 'package:hive_application/Screen/List%20Screen/list_screen.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({Key? key}) : super(key: key);
@@ -11,6 +14,10 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  bool isImageSelected = false;
+  String imageController = '';
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -25,11 +32,11 @@ class _AddScreenState extends State<AddScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: ((context) => HomeScreen()),
+                builder: ((context) => const HomeScreen()),
               ),
             );
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -37,7 +44,7 @@ class _AddScreenState extends State<AddScreen> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.share,
               color: Colors.white,
             ),
@@ -46,14 +53,14 @@ class _AddScreenState extends State<AddScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 70,
           ),
           Expanded(
             child: Stack(
               children: [
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(32),
@@ -63,11 +70,11 @@ class _AddScreenState extends State<AddScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       child: Column(
                         children: [
                           Row(
-                            children: [
+                            children: const [
                               Text(
                                 'H ',
                                 style:
@@ -83,18 +90,18 @@ class _AddScreenState extends State<AddScreen> {
                             ],
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 5),
+                            margin: const EdgeInsets.only(top: 5),
                             height: 60,
                             width: double.infinity,
                             child: TextField(
+                              controller: titleController,
                               decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
-                                prefixIcon: Icon(
+                                prefixIcon: const Icon(
                                   Icons.text_fields_outlined,
                                 ),
                                 hintText: 'write your title here',
-                                hintStyle: TextStyle(color: Colors.white),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide.none,
                                     borderRadius: BorderRadius.circular(18)),
@@ -104,7 +111,7 @@ class _AddScreenState extends State<AddScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Row(
@@ -113,10 +120,10 @@ class _AddScreenState extends State<AddScreen> {
                                 Icons.description,
                                 color: Colors.grey.shade300,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
-                              Text(
+                              const Text(
                                 'Description',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -125,12 +132,13 @@ class _AddScreenState extends State<AddScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           SizedBox(
                             height: 200,
                             child: TextField(
+                              controller: descriptionController,
                               textAlign: TextAlign.justify,
                               maxLines: null,
                               expands: true,
@@ -138,11 +146,10 @@ class _AddScreenState extends State<AddScreen> {
                               decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
-                                prefixIcon: Icon(
+                                prefixIcon: const Icon(
                                   Icons.text_fields_outlined,
                                 ),
-                                hintText: 'write your title here',
-                                hintStyle: TextStyle(color: Colors.white),
+                                hintText: 'write your description here',
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide.none,
                                     borderRadius: BorderRadius.circular(18)),
@@ -152,7 +159,7 @@ class _AddScreenState extends State<AddScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Row(
@@ -161,10 +168,10 @@ class _AddScreenState extends State<AddScreen> {
                                 Icons.image,
                                 color: Colors.grey.shade300,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
-                              Text(
+                              const Text(
                                 'Photos',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -173,7 +180,7 @@ class _AddScreenState extends State<AddScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           SizedBox(
@@ -186,8 +193,8 @@ class _AddScreenState extends State<AddScreen> {
                                   ? GestureDetector(
                                       onTap: () {},
                                       child: Container(
-                                        margin:
-                                            EdgeInsets.only(top: 10, left: 15),
+                                        margin: const EdgeInsets.only(
+                                            top: 10, left: 15),
                                         height: 70,
                                         width: 70,
                                         decoration: BoxDecoration(
@@ -208,10 +215,12 @@ class _AddScreenState extends State<AddScreen> {
                                           onTap: () {
                                             setState(() {
                                               currentIndex = index;
+                                              imageController = images[index];
+                                              isImageSelected = true;
                                             });
                                           },
                                           child: Container(
-                                            margin: EdgeInsets.only(
+                                            margin: const EdgeInsets.only(
                                                 top: 10, left: 15),
                                             height: 70,
                                             width: 70,
@@ -248,9 +257,8 @@ class _AddScreenState extends State<AddScreen> {
                                     )),
                             ),
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
+                       
+                      SizedBox(height: MediaQuery.of(context).size.height*0.07,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -259,42 +267,75 @@ class _AddScreenState extends State<AddScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: ((context) => HomeScreen()),
+                                      builder: ((context) =>
+                                          const HomeScreen()),
                                     ),
                                   );
                                 },
-                                child: Text('Cancel'),
                                 style: OutlinedButton.styleFrom(
                                   primary: primary,
                                   side: BorderSide(
                                     color: primary,
                                     width: 2,
                                   ),
-                                  fixedSize: Size(150, 50),
+                                  fixedSize: const Size(150, 50),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18)),
                                 ),
+                                child: const Text('Cancel'),
                               ),
                               OutlinedButton(
-                                onPressed: () {},
-                                child: Text('Save'),
+                                onPressed: () {
+                                  setState(() {
+                                    if (titleController.text.isNotEmpty &&
+                                        descriptionController.text.isNotEmpty &&
+                                        isImageSelected == true) {
+                                      addData(
+                                        titleController.text,
+                                        descriptionController.text,
+                                        imageController,
+                                      );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: ((context) =>
+                                              const ListScreen()),
+                                        ),
+                                      );
+                                      titleController.clear();
+                                      descriptionController.clear();
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                              Text('All fiels are required'),
+                                        ),
+                                      );
+                                    }
+                                  });
+                                },
                                 style: OutlinedButton.styleFrom(
                                   primary: Colors.white,
                                   backgroundColor: primary,
                                   side: BorderSide.none,
-                                  fixedSize: Size(150, 50),
+                                  fixedSize: const Size(150, 50),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18)),
                                 ),
+                                child: const Text('Save'),
                               ),
                             ],
-                          )
+                          ),
+                      SizedBox(height: MediaQuery.of(context).size.height*0.05,),
+
+
                         ],
                       ),
                     ),
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment(0.5, -1.05),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
@@ -305,7 +346,7 @@ class _AddScreenState extends State<AddScreen> {
                   ),
                 ),
                 Align(
-                  alignment: Alignment(0.8, -1.05),
+                  alignment: const Alignment(0.8, -1.05),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: Icon(
@@ -316,9 +357,18 @@ class _AddScreenState extends State<AddScreen> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
+  }
+
+  void addData(String title, String description, String image) {
+    final data = Data()
+      ..title = title
+      ..description = description
+      ..image = image;
+    final box = Boxes.getData();
+    box.add(data);
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:hive_application/Constant/color.dart';
 import 'package:hive_application/Screen/Add%20Screen/add_screen.dart';
 import 'package:hive_application/Screen/Home%20Screen/model.dart';
+import 'package:hive_application/Screen/List%20Screen/list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,18 +14,43 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.white,
+        leading: const Icon(Icons.menu),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ListScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.sort)),
+          const Padding(padding: EdgeInsets.only(right: 10))
+        ],
+      ),
       extendBodyBehindAppBar: true,
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 30, left: 20, right: 20),
+            padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.35,
             decoration: BoxDecoration(
               color: primary,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(32),
                 bottomRight: Radius.circular(
                   32,
@@ -33,30 +60,11 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.menu,
-                        color: Colors.white,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.notifications,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
+                const Text(
                   "Hi Sonia",
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
-                Text(
+                const Text(
                   "Welcome Back 👋",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -65,20 +73,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 15),
+                  margin: const EdgeInsets.only(top: 15),
                   height: 60,
                   width: double.infinity,
                   child: TextField(
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey.withOpacity(0.5),
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.search,
                         color: Colors.white,
                       ),
                       hintText: 'What category are you searching for?',
-                      hintStyle: TextStyle(color: Colors.white),
+                      hintStyle: const TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(32),
@@ -94,14 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 20,
               left: 20,
               right: 20,
             ),
             child: Row(
               children: [
-                Text(
+                const Text(
                   'Category',
                   style: TextStyle(
                     color: Color(0xff010326),
@@ -109,12 +117,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 18,
                   ),
                 ),
-                Spacer(),
-                Icon(
+                const Spacer(),
+                const Icon(
                   Icons.delete,
                   color: Color(0xffAAA7F2),
                 ),
-                Icon(
+                const Icon(
                   Icons.edit,
                   color: Color(0xffAAA7F2),
                 ),
@@ -127,10 +135,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Expanded(
             child: GridView.builder(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                physics: const BouncingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 30,
                   mainAxisSpacing: 30,
@@ -149,11 +157,11 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddScreen(),
+              builder: (context) => const AddScreen(),
             ),
           );
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
@@ -161,9 +169,9 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomAppBar(
           color: Colors.transparent,
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 5),
             height: 50,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(18),
@@ -195,7 +203,7 @@ class CategoryBox extends StatelessWidget {
             categorylist.icon,
             height: 50,
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Text(
